@@ -1,17 +1,31 @@
 ﻿@inherits LayoutComponentBase
 
-<div class="page">
-    <div class="sidebar">
-        <NavMenu />
-    </div>
-
-    <div class="main">
-        <div class="top-row px-4">
-            <a href="http://blazor.net" target="_blank" class="ml-md-auto">About</a>
+<CascadingValue Value="this">
+    <div class="page">
+        <div class="sidebar">
+            <NavMenu />
         </div>
+        <div class="main">
+            <div class="top-row px-4">
+                @header
+            </div>
 
-        <div class="content px-4">
-            @Body
+            <div class="content px-4">
+                @Body
+                @footer
+            </div>
         </div>
     </div>
-</div>
+</CascadingValue>
+
+@code {
+    private RenderFragment header;
+    private RenderFragment footer;
+
+    public void SetHeaderAndFooter(RenderFragment header, RenderFragment footer)
+    {
+        this.header = header;
+        this.footer = footer;
+        StateHasChanged();
+    }
+}
